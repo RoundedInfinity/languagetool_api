@@ -1,7 +1,7 @@
 // To parse this JSON data, do
 //
 //     final languageToolAwnser = languageToolAwnserFromJson(jsonString);
-
+// ignore_for_file: public_member_api_docs
 import 'dart:convert';
 
 LanguageToolAwnserRaw languageToolAwnserFromJson(String str) =>

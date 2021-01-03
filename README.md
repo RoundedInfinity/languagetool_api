@@ -1,22 +1,35 @@
-A library for Dart developers.
+# LanguageTool API
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+Dart library for checking text for grammar and spelling mistakes using the [languageTool API.](https://languagetool.org)
+
+[![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://pub.dev/packages/effective_dart)
+
+## Features 
+
+- check for spelling mistakes
+- check for grammatical mistakes
+-  20 requests per minute:
 
 ## Usage
 
-A simple usage example:
+Use the `LanguageTool` Object to check your text with the _LanguageTool API_. You can currently only use the free version of this API that does not require an API key.
+
+First, import this package.
 
 ```dart
-import 'package:perfecttense_api/perfecttense_api.dart';
-
-main() {
-  var awesome = new Awesome();
-}
+import 'package:language_tool/language_tool.dart';
 ```
 
-## Features and bugs
+Now instantiate `LanguageTool` and use it in an `async` function.
 
-Please file feature requests and bugs at the [issue tracker][tracker].
+```dart
+var tool = LanguageTool();
 
-[tracker]: http://example.com/issues/replaceme
+var result = tool.check('what happened at 5 PM on Monday, 27 May 2007?')
+
+result.forEach(print);
+// This will print 2 mistakes.
+// 1. No uppercase letter.
+// 2. 27 May 2007 wasn't a monday.
+```
+

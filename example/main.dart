@@ -7,7 +7,16 @@ void main() async {
     'Im a good boy that is super cool and hapy',
   );
   for (var mistake in result) {
-    print(
-        'Issue: ${mistake.issueDescription} positioned at: ${mistake.offset} with the lengh of ${mistake.length}. Possible corrections: ${mistake.replacements}');
+    sentence = sentence.replaceRange(
+      mistake.offset + addedChars,
+      mistake.offset + mistake.length + addedChars,
+      red +
+          sentence.substring(mistake.offset + addedChars,
+              mistake.offset + mistake.length + addedChars) +
+          reset,
+    );
+    addedChars += 9;
   }
+
+  print(sentence);
 }
