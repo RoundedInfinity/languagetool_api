@@ -36,8 +36,10 @@ class LanguageTool {
   ///
   /// If no mistake were found, this returns an emtpy list
   Future<List<WritingMistake>> check(String text) async {
+    var languageToolUri=  Uri.https("api.languagetoolplus.com", "v2/check");
     var res = await http.post(
-      'https://api.languagetoolplus.com/v2/check',
+      languageToolUri,
+      // 'https://api.languagetoolplus.com/v2/check',
       headers: _headers,
       body: _formatDataArgument(text),
     );
