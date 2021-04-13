@@ -1,24 +1,24 @@
 /// Object that stores information about a single writing mistake.
 class WritingMistake {
   /// Position of the beginning of the mistake.
-  final int offset;
+  final int? offset;
 
   /// Length of the mistake after the offset.
-  final int length;
+  final int? length;
 
   /// The type of mistake.
-  final String issueType;
+  final String? issueType;
 
   /// Description of the [issueType].
-  final String issueDescription;
+  final String? issueDescription;
 
   /// A brief description of the mistake.
-  final String message;
+  final String? message;
 
   /// A list of suggestions for replacing the mistake.
   ///
   /// Sortet by probability.
-  final List<String> replacements;
+  final List<String?>? replacements;
 
   /// Object that stores information about a single writing mistake.
   WritingMistake({
@@ -32,12 +32,12 @@ class WritingMistake {
 
   /// Copies the object with the specified values changed.
   WritingMistake copyWith({
-    int offset,
-    int length,
-    String issueType,
-    String issueDescription,
-    String message,
-    List<String> replacements,
+    int? offset,
+    int? length,
+    String? issueType,
+    String? issueDescription,
+    String? message,
+    List<String>? replacements,
   }) {
     return WritingMistake(
       offset: offset ?? this.offset,

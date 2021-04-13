@@ -8,7 +8,7 @@ void main() {
 
       var result = await tool.check('Hello theer');
       expect(result.length, 1);
-      expect(result.first.replacements.first, 'there');
+      expect(result.first.replacements!.first, 'there');
     });
 
     test('No mistakes ', () async {

@@ -40,11 +40,11 @@ void markMistakes(List<WritingMistake> result, String sentence) {
 
   for (var mistake in result) {
     sentence = sentence.replaceRange(
-      mistake.offset + addedChars,
-      mistake.offset + mistake.length + addedChars,
+      mistake.offset! + addedChars,
+      mistake.offset! + mistake.length! + addedChars,
       red +
-          sentence.substring(mistake.offset + addedChars,
-              mistake.offset + mistake.length + addedChars) +
+          sentence.substring(mistake.offset! + addedChars,
+              mistake.offset! + mistake.length! + addedChars) +
           reset,
     );
     addedChars += 9;
