@@ -2,13 +2,13 @@
 
 Dart library for checking text for grammar and spelling mistakes using the [languageTool API.](https://languagetool.org)
 
-[![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://pub.dev/packages/effective_dart)[![CodeFactor](https://www.codefactor.io/repository/github/roundedinfinity/languagetool_api/badge)](https://www.codefactor.io/repository/github/roundedinfinity/languagetool_api)
+[![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://pub.dev/packages/effective_dart) [![CodeFactor](https://www.codefactor.io/repository/github/roundedinfinity/languagetool_api/badge)](https://www.codefactor.io/repository/github/roundedinfinity/languagetool_api)
 
-## Features 
+## Features
 
 - check for spelling mistakes
 - check for grammatical mistakes
--  20 requests per minute
+- 20 requests per minute
 
 ## Usage
 
@@ -32,4 +32,3 @@ result.forEach(print);
 // 1. No uppercase letter.
 // 2. 27 May 2007 wasn't a monday.
 ```
-

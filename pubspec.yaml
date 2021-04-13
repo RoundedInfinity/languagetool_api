@@ -1,7 +1,7 @@
 name: language_tool
 description: Dart library for checking text for grammar and spelling mistakes
   using the language tool API.
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/RoundedInfinity/languagetool_api.git
 
 environment:

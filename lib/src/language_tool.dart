@@ -6,7 +6,7 @@ import 'data/writing_mistake.dart';
 /// Objects of this class are used to interact with the LanguageTool API.
 class LanguageTool {
   /// If set to [picky], additional rules will be activated,
-  ///  i.e. rules that you might only find useful when checking formal text.
+  /// i.e. rules that you might only find useful when checking formal text.
   final bool picky;
 
   /// A language code like en-US,
@@ -36,7 +36,7 @@ class LanguageTool {
   ///
   /// If no mistake were found, this returns an emtpy list
   Future<List<WritingMistake>> check(String text) async {
-    var languageToolUri=  Uri.https("api.languagetoolplus.com", "v2/check");
+    var languageToolUri = Uri.https("api.languagetoolplus.com", "v2/check");
     var res = await http.post(
       languageToolUri,
       // 'https://api.languagetoolplus.com/v2/check',
