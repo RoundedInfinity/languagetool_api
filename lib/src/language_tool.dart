@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 
-import 'data/awnser_raw.dart';
+import 'data/answer_raw.dart';
 import 'data/writing_mistake.dart';
 
 /// Objects of this class are used to interact with the LanguageTool API.
@@ -48,8 +48,8 @@ class LanguageTool {
       throw Exception('http.post error: statusCode= ${res.statusCode}');
     }
 
-    final languageToolAwnser = languageToolAwnserFromJson(res.body);
-    return parseWritings(languageToolAwnser);
+    final languageToolAnswer = languageToolAnswerFromJson(res.body);
+    return parseWritings(languageToolAnswer);
   }
 
   String _formatDataArgument(String uncheckedText) {
@@ -59,10 +59,10 @@ class LanguageTool {
     return 'text=$text&language=$language&enabledOnly=false&level=$level';
   }
 
-  /// Converts a [LanguageToolAwnserRaw] in a  [WritingMistake].
-  List<WritingMistake> parseWritings(LanguageToolAwnserRaw languageToolAwnser) {
+  /// Converts a [LanguageToolAnswerRaw] in a  [WritingMistake].
+  List<WritingMistake> parseWritings(LanguageToolAnswerRaw languageToolAnswer) {
     var result = <WritingMistake>[];
-    for (var match in languageToolAwnser.matches) {
+    for (var match in languageToolAnswer.matches) {
       var replacements = <String>[];
       for (var item in match.replacements) {
         replacements.add(item.value);

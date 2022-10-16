@@ -1,17 +1,17 @@
 // To parse this JSON data, do
 //
-//     final languageToolAwnser = languageToolAwnserFromJson(jsonString);
+//     final languageToolAnswr = languageToolAnswerFromJson(jsonString);
 // ignore_for_file: public_member_api_docs
 import 'dart:convert';
 
-LanguageToolAwnserRaw languageToolAwnserFromJson(String str) =>
-    LanguageToolAwnserRaw.fromJson(json.decode(str));
+LanguageToolAnswerRaw languageToolAnswerFromJson(String str) =>
+    LanguageToolAnswerRaw.fromJson(json.decode(str));
 
-String languageToolAwnserToJson(LanguageToolAwnserRaw data) =>
+String languageToolAnswerToJson(LanguageToolAnswerRaw data) =>
     json.encode(data.toJson());
 
-class LanguageToolAwnserRaw {
-  LanguageToolAwnserRaw({
+class LanguageToolAnswerRaw {
+  LanguageToolAnswerRaw({
     this.software,
     this.warnings,
     this.language,
@@ -23,8 +23,8 @@ class LanguageToolAwnserRaw {
   Language language;
   List<Match> matches;
 
-  factory LanguageToolAwnserRaw.fromJson(Map<String, dynamic> json) =>
-      LanguageToolAwnserRaw(
+  factory LanguageToolAnswerRaw.fromJson(Map<String, dynamic> json) =>
+      LanguageToolAnswerRaw(
         software: Software.fromJson(json['software']),
         warnings: Warnings.fromJson(json['warnings']),
         language: Language.fromJson(json['language']),
