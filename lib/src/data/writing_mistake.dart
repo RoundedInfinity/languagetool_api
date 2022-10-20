@@ -22,30 +22,30 @@ class WritingMistake {
 
   /// Object that stores information about a single writing mistake.
   WritingMistake({
-    this.message,
-    this.offset,
-    this.length,
-    this.issueType,
-    this.issueDescription,
-    this.replacements,
+    required this.message,
+    required this.offset,
+    required this.length,
+    required this.issueType,
+    required this.issueDescription,
+    required this.replacements,
   });
 
   /// Copies the object with the specified values changed.
   WritingMistake copyWith({
-    int offset,
-    int length,
-    String issueType,
-    String issueDescription,
-    String message,
-    List<String> replacements,
+    required int offset,
+    required int length,
+    required String issueType,
+    required String issueDescription,
+    required String message,
+    required List<String> replacements,
   }) {
     return WritingMistake(
-      offset: offset ?? this.offset,
-      length: length ?? this.length,
-      issueType: issueType ?? this.issueType,
-      issueDescription: issueDescription ?? this.issueDescription,
-      message: message ?? this.message,
-      replacements: replacements ?? this.replacements,
+      offset: offset,
+      length: length,
+      issueType: issueType,
+      issueDescription: issueDescription,
+      message: message,
+      replacements: replacements,
     );
   }
 

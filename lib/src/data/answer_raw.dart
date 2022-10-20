@@ -1,21 +1,21 @@
 // To parse this JSON data, do
 //
-//     final languageToolAwnser = languageToolAwnserFromJson(jsonString);
+//     final languageToolAnswr = languageToolAnswerFromJson(jsonString);
 // ignore_for_file: public_member_api_docs
 import 'dart:convert';
 
-LanguageToolAwnserRaw languageToolAwnserFromJson(String str) =>
-    LanguageToolAwnserRaw.fromJson(json.decode(str));
+LanguageToolAnswerRaw languageToolAnswerFromJson(String str) =>
+    LanguageToolAnswerRaw.fromJson(json.decode(str));
 
-String languageToolAwnserToJson(LanguageToolAwnserRaw data) =>
+String languageToolAnswerToJson(LanguageToolAnswerRaw data) =>
     json.encode(data.toJson());
 
-class LanguageToolAwnserRaw {
-  LanguageToolAwnserRaw({
-    this.software,
-    this.warnings,
-    this.language,
-    this.matches,
+class LanguageToolAnswerRaw {
+  LanguageToolAnswerRaw({
+    required this.software,
+    required this.warnings,
+    required this.language,
+    required this.matches,
   });
 
   Software software;
@@ -23,13 +23,12 @@ class LanguageToolAwnserRaw {
   Language language;
   List<Match> matches;
 
-  factory LanguageToolAwnserRaw.fromJson(Map<String, dynamic> json) =>
-      LanguageToolAwnserRaw(
+  factory LanguageToolAnswerRaw.fromJson(Map<String, dynamic> json) =>
+      LanguageToolAnswerRaw(
         software: Software.fromJson(json['software']),
         warnings: Warnings.fromJson(json['warnings']),
         language: Language.fromJson(json['language']),
-        matches:
-            List<Match>.from(json['matches'].map((x) => Match.fromJson(x))),
+        matches: json['matches'].map<Match>(Match.fromJson).toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,9 +41,9 @@ class LanguageToolAwnserRaw {
 
 class Language {
   Language({
-    this.name,
-    this.code,
-    this.detectedLanguage,
+    required this.name,
+    required this.code,
+    required this.detectedLanguage,
   });
 
   String name;
@@ -66,9 +65,9 @@ class Language {
 
 class DetectedLanguage {
   DetectedLanguage({
-    this.name,
-    this.code,
-    this.confidence,
+    required this.name,
+    required this.code,
+    required this.confidence,
   });
 
   String name;
@@ -91,17 +90,17 @@ class DetectedLanguage {
 
 class Match {
   Match({
-    this.message,
-    this.shortMessage,
-    this.replacements,
-    this.offset,
-    this.length,
-    this.context,
-    this.sentence,
-    this.type,
-    this.rule,
-    this.ignoreForIncompleteSentence,
-    this.contextForSureMatch,
+    required this.message,
+    required this.shortMessage,
+    required this.replacements,
+    required this.offset,
+    required this.length,
+    required this.context,
+    required this.sentence,
+    required this.type,
+    required this.rule,
+    required this.ignoreForIncompleteSentence,
+    required this.contextForSureMatch,
   });
 
   String message;
@@ -116,11 +115,12 @@ class Match {
   bool ignoreForIncompleteSentence;
   int contextForSureMatch;
 
-  factory Match.fromJson(Map<String, dynamic> json) => Match(
+  factory Match.fromJson(dynamic json) => Match(
         message: json['message'],
         shortMessage: json['shortMessage'],
-        replacements: List<Replacement>.from(
-            json['replacements'].map((x) => Replacement.fromJson(x))),
+        replacements: json['replacements']
+            .map<Replacement>(Replacement.fromJson)
+            .toList(),
         offset: json['offset'],
         length: json['length'],
         context: Context.fromJson(json['context']),
@@ -148,9 +148,9 @@ class Match {
 
 class Context {
   Context({
-    this.text,
-    this.offset,
-    this.length,
+    required this.text,
+    required this.offset,
+    required this.length,
   });
 
   String text;
@@ -172,12 +172,12 @@ class Context {
 
 class Replacement {
   Replacement({
-    this.value,
+    required this.value,
   });
 
   String value;
 
-  factory Replacement.fromJson(Map<String, dynamic> json) => Replacement(
+  factory Replacement.fromJson(dynamic json) => Replacement(
         value: json['value'],
       );
 
@@ -188,11 +188,11 @@ class Replacement {
 
 class Rule {
   Rule({
-    this.id,
-    this.description,
-    this.issueType,
-    this.category,
-    this.isPremium,
+    required this.id,
+    required this.description,
+    required this.issueType,
+    required this.category,
+    required this.isPremium,
   });
 
   String id;
@@ -220,8 +220,8 @@ class Rule {
 
 class Category {
   Category({
-    this.id,
-    this.name,
+    required this.id,
+    required this.name,
   });
 
   String id;
@@ -240,7 +240,7 @@ class Category {
 
 class Type {
   Type({
-    this.typeName,
+    required this.typeName,
   });
 
   String typeName;
@@ -256,13 +256,13 @@ class Type {
 
 class Software {
   Software({
-    this.name,
-    this.version,
-    this.buildDate,
-    this.apiVersion,
-    this.premium,
-    this.premiumHint,
-    this.status,
+    required this.name,
+    required this.version,
+    required this.buildDate,
+    required this.apiVersion,
+    required this.premium,
+    required this.premiumHint,
+    required this.status,
   });
 
   String name;
@@ -296,7 +296,7 @@ class Software {
 
 class Warnings {
   Warnings({
-    this.incompleteResults,
+    required this.incompleteResults,
   });
 
   bool incompleteResults;

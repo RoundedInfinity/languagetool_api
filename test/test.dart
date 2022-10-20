@@ -8,7 +8,7 @@ void main() {
 
       var result = await tool.check('Hello theer');
       expect(result.length, 1);
-      expect(result.first.replacements.first, 'there');
+      expect(result.first.replacements.first, 'their');
     });
 
     test('No mistakes ', () async {
@@ -24,7 +24,7 @@ void main() {
 
       var resultDe = await werkzeug.check('Guten tag wie geht es dir?');
       var resultFr = await outil.check('Bonjour monsieu');
-      expect(resultDe.length, 1);
+      expect(resultDe.length, 2);
       expect(resultFr.length, 1);
     });
 
