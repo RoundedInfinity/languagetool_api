@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
-import 'data/answer_raw.dart';
-import 'data/writing_mistake.dart';
+import 'model/answer_raw.dart';
+import 'model/language.dart';
+import 'model/writing_mistake.dart';
 
 /// Objects of this class are used to interact with the LanguageTool API.
 class LanguageTool {
@@ -27,7 +30,9 @@ class LanguageTool {
     this.language = 'auto',
   });
 
-  final _headers = {
+  static const _url = "api.languagetoolplus.com";
+
+  static const _headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Accept': 'application/json',
   };
@@ -36,7 +41,7 @@ class LanguageTool {
   ///
   /// If no mistake were found, this returns an emtpy list
   Future<List<WritingMistake>> check(String text) async {
-    var languageToolUri = Uri.https("api.languagetoolplus.com", "v2/check");
+    var languageToolUri = Uri.https(_url, "v2/check");
     var res = await http.post(
       languageToolUri,
       // 'https://api.languagetoolplus.com/v2/check',
@@ -45,7 +50,7 @@ class LanguageTool {
     );
 
     if (res.statusCode != 200) {
-      throw Exception('http.post error: statusCode= ${res.statusCode}');
+      throw Exception('http.post error: ${res.statusCode} ${res.reasonPhrase}');
     }
 
     final languageToolAnswer = languageToolAnswerFromJson(res.body);
@@ -59,7 +64,7 @@ class LanguageTool {
     return 'text=$text&language=$language&enabledOnly=false&level=$level';
   }
 
-  /// Converts a [LanguageToolAnswerRaw] in a  [WritingMistake].
+  /// Converts a [LanguageToolAnswerRaw] in a [WritingMistake].
   List<WritingMistake> parseWritings(LanguageToolAnswerRaw languageToolAnswer) {
     var result = <WritingMistake>[];
     for (var match in languageToolAnswer.matches) {
@@ -70,14 +75,35 @@ class LanguageTool {
 
       result.add(
         WritingMistake(
-            issueDescription: match.rule.description,
-            issueType: match.rule.issueType,
-            length: match.length,
-            offset: match.offset,
-            replacements: replacements,
-            message: match.message),
+          issueDescription: match.rule.description,
+          issueType: match.rule.issueType,
+          length: match.length,
+          offset: match.offset,
+          replacements: replacements,
+          message: match.message,
+        ),
       );
     }
     return result;
+  }
+
+  /// Get a list of supported languages.
+  Future<List<Language>?> languages() async {
+    var res = await http.get(
+      Uri.https(_url, "v2/languages"),
+      headers: {"content-type": "application/json"},
+    );
+
+    if (res.statusCode != 200) {
+      throw Exception('http.post error: ${res.statusCode} ${res.reasonPhrase}');
+    }
+    final Iterable languagesRaw = jsonDecode(res.body);
+
+    return List<Language>.from(
+      languagesRaw.map(
+        // ignore: unnecessary_lambdas
+        (model) => Language.fromJson(model),
+      ),
+    );
   }
 }

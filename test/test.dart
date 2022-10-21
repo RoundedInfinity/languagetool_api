@@ -1,40 +1,48 @@
-import 'package:language_tool/language_tool.dart';
 import 'package:test/test.dart';
+
+import 'package:language_tool/language_tool.dart';
 
 void main() {
   group('Checking', () {
     test('Simple check', () async {
-      var tool = LanguageTool();
+      final tool = LanguageTool();
 
-      var result = await tool.check('Hello theer');
+      final result = await tool.check('Hello theer');
       expect(result.length, 1);
       expect(result.first.replacements.first, 'their');
     });
 
     test('No mistakes ', () async {
-      var tool = LanguageTool();
+      final tool = LanguageTool();
 
-      var result = await tool.check('Hello there');
+      final result = await tool.check('Hello there');
       expect(result, isEmpty);
     });
 
     test('Language test', () async {
-      var werkzeug = LanguageTool(language: 'de-DE');
-      var outil = LanguageTool(language: 'fr');
+      final werkzeug = LanguageTool(language: 'de-DE');
+      final outil = LanguageTool(language: 'fr');
 
-      var resultDe = await werkzeug.check('Guten tag wie geht es dir?');
-      var resultFr = await outil.check('Bonjour monsieu');
+      final resultDe = await werkzeug.check('Guten tag wie geht es dir?');
+      final resultFr = await outil.check('Bonjour monsieu');
       expect(resultDe.length, 2);
       expect(resultFr.length, 1);
     });
 
     test('Auto detected Language', () async {
-      var tool = LanguageTool();
-      var resultEn = await tool.check('This is a english sentences');
-      var resultDe = await tool.check('Dieses Satz ist falsch');
+      final tool = LanguageTool();
+      final resultEn = await tool.check('This is a english sentences');
+      final resultDe = await tool.check('Dieses Satz ist falsch');
 
       expect(resultEn.first.issueType, 'misspelling');
       expect(resultDe.length, 1);
+    });
+
+    test('List Languages', () async {
+      final tool = LanguageTool();
+      final languages = await tool.languages();
+
+      expect(languages, isNotEmpty);
     });
   });
 }

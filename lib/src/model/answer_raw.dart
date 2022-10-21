@@ -4,6 +4,8 @@
 // ignore_for_file: public_member_api_docs
 import 'dart:convert';
 
+import 'language.dart';
+
 LanguageToolAnswerRaw languageToolAnswerFromJson(String str) =>
     LanguageToolAnswerRaw.fromJson(json.decode(str));
 
@@ -20,6 +22,8 @@ class LanguageToolAnswerRaw {
 
   Software software;
   Warnings warnings;
+
+  /// The language used for checking the text.
   Language language;
   List<Match> matches;
 
@@ -36,55 +40,6 @@ class LanguageToolAnswerRaw {
         'warnings': warnings.toJson(),
         'language': language.toJson(),
         'matches': List<dynamic>.from(matches.map((x) => x.toJson())),
-      };
-}
-
-class Language {
-  Language({
-    required this.name,
-    required this.code,
-    required this.detectedLanguage,
-  });
-
-  String name;
-  String code;
-  DetectedLanguage detectedLanguage;
-
-  factory Language.fromJson(Map<String, dynamic> json) => Language(
-        name: json['name'],
-        code: json['code'],
-        detectedLanguage: DetectedLanguage.fromJson(json['detectedLanguage']),
-      );
-
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'code': code,
-        'detectedLanguage': detectedLanguage.toJson(),
-      };
-}
-
-class DetectedLanguage {
-  DetectedLanguage({
-    required this.name,
-    required this.code,
-    required this.confidence,
-  });
-
-  String name;
-  String code;
-  double confidence;
-
-  factory DetectedLanguage.fromJson(Map<String, dynamic> json) =>
-      DetectedLanguage(
-        name: json['name'],
-        code: json['code'],
-        confidence: json['confidence'].toDouble(),
-      );
-
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'code': code,
-        'confidence': confidence,
       };
 }
 
