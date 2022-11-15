@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes
+
 /// An object that contains information about a language.
 class Language {
   /// An object that contains information about a language.
@@ -7,6 +9,20 @@ class Language {
     this.longCode,
     this.detectedLanguage,
   });
+
+  /// {@template doc_fromjson}
+  /// Creates this object from a json Map.
+  /// {@endtemplate}
+  factory Language.fromJson(Map<String, dynamic> json) => Language(
+        name: json['name'] as String,
+        code: json['code'] as String,
+        longCode: json['longCode'] as String?,
+        detectedLanguage: json.containsKey('detectedLanguage')
+            ? DetectedLanguage?.fromJson(
+                json['detectedLanguage'] as Map<String, dynamic>,
+              )
+            : null,
+      );
 
   /// A language name like 'French' or 'English (Australia)'
   final String name;
@@ -20,20 +36,8 @@ class Language {
   /// The automatically detected text language
   ///  (might be different from the language actually used for checking).
   ///
-  /// Will always be `null` when using the [languages] function.
+  /// Will always be `null` when using the `languages` function.
   final DetectedLanguage? detectedLanguage;
-
-  /// {@template doc_fromjson}
-  /// Creates this object from a json Map.
-  /// {@endtemplate}
-  factory Language.fromJson(Map<String, dynamic> json) => Language(
-        name: json['name'],
-        code: json['code'],
-        longCode: json['longCode'],
-        detectedLanguage: json.containsKey('detectedLanguage')
-            ? DetectedLanguage?.fromJson(json['detectedLanguage'])
-            : null,
-      );
 
   /// {@template doc_tojson}
   /// Converts this object into a json Map.
@@ -61,6 +65,31 @@ class Language {
       detectedLanguage: detectedLanguage ?? this.detectedLanguage,
     );
   }
+
+  @override
+  String toString() {
+    // ignore: lines_longer_than_80_chars
+    return 'Language(name: $name, code: $code, longCode: $longCode, detectedLanguage: $detectedLanguage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Language &&
+        other.name == name &&
+        other.code == code &&
+        other.longCode == longCode &&
+        other.detectedLanguage == detectedLanguage;
+  }
+
+  @override
+  int get hashCode {
+    return name.hashCode ^
+        code.hashCode ^
+        longCode.hashCode ^
+        detectedLanguage.hashCode;
+  }
 }
 
 /// The automatically detected text language.
@@ -72,6 +101,14 @@ class DetectedLanguage {
     required this.confidence,
   });
 
+  /// {@macro doc_fromjson}
+  factory DetectedLanguage.fromJson(Map<String, dynamic> json) =>
+      DetectedLanguage(
+        name: json['name'] as String,
+        code: json['code'] as String,
+        confidence: (json['confidence'] as num).toDouble(),
+      );
+
   /// Language name like 'French' or 'English (US)'.
   final String name;
 
@@ -80,14 +117,6 @@ class DetectedLanguage {
 
   /// How confident this language was chosen.
   final double confidence;
-
-  /// {@macro doc_fromjson}
-  factory DetectedLanguage.fromJson(Map<String, dynamic> json) =>
-      DetectedLanguage(
-        name: json['name'],
-        code: json['code'],
-        confidence: json['confidence'].toDouble(),
-      );
 
   /// {@macro doc_tojson}
   Map<String, dynamic> toJson() => {

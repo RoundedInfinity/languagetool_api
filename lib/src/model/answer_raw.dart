@@ -2,15 +2,8 @@
 //
 //     final languageToolAnswr = languageToolAnswerFromJson(jsonString);
 // ignore_for_file: public_member_api_docs
-import 'dart:convert';
 
-import 'language.dart';
-
-LanguageToolAnswerRaw languageToolAnswerFromJson(String str) =>
-    LanguageToolAnswerRaw.fromJson(json.decode(str));
-
-String languageToolAnswerToJson(LanguageToolAnswerRaw data) =>
-    json.encode(data.toJson());
+import 'package:language_tool/src/model/language.dart';
 
 class LanguageToolAnswerRaw {
   LanguageToolAnswerRaw({
@@ -20,20 +13,24 @@ class LanguageToolAnswerRaw {
     required this.matches,
   });
 
+  factory LanguageToolAnswerRaw.fromJson(Map<String, dynamic> json) =>
+      LanguageToolAnswerRaw(
+        software: Software.fromJson(json['software'] as Map<String, dynamic>),
+        warnings: Warnings.fromJson(json['warnings'] as Map<String, dynamic>),
+        language: Language.fromJson(json['language'] as Map<String, dynamic>),
+        matches: (json['matches'] as Iterable)
+            .map<Match>(
+              (e) => Match.fromJson(e as Map<String, dynamic>),
+            )
+            .toList(),
+      );
+
   Software software;
   Warnings warnings;
 
   /// The language used for checking the text.
   Language language;
   List<Match> matches;
-
-  factory LanguageToolAnswerRaw.fromJson(Map<String, dynamic> json) =>
-      LanguageToolAnswerRaw(
-        software: Software.fromJson(json['software']),
-        warnings: Warnings.fromJson(json['warnings']),
-        language: Language.fromJson(json['language']),
-        matches: json['matches'].map<Match>(Match.fromJson).toList(),
-      );
 
   Map<String, dynamic> toJson() => {
         'software': software.toJson(),
@@ -58,6 +55,25 @@ class Match {
     required this.contextForSureMatch,
   });
 
+  factory Match.fromJson(Map<String, dynamic> json) => Match(
+        message: json['message'] as String,
+        shortMessage: json['shortMessage'] as String,
+        replacements: (json['replacements'] as Iterable)
+            .map<Replacement>(
+              (e) => Replacement.fromJson(e as Map<String, dynamic>),
+            )
+            .toList(),
+        offset: json['offset'] as int,
+        length: json['length'] as int,
+        context: Context.fromJson(json['context'] as Map<String, dynamic>),
+        sentence: json['sentence'] as String,
+        type: Type.fromJson(json['type'] as Map<String, dynamic>),
+        rule: Rule.fromJson(json['rule'] as Map<String, dynamic>),
+        ignoreForIncompleteSentence:
+            json['ignoreForIncompleteSentence'] as bool,
+        contextForSureMatch: json['contextForSureMatch'] as int,
+      );
+
   String message;
   String shortMessage;
   List<Replacement> replacements;
@@ -69,22 +85,6 @@ class Match {
   Rule rule;
   bool ignoreForIncompleteSentence;
   int contextForSureMatch;
-
-  factory Match.fromJson(dynamic json) => Match(
-        message: json['message'],
-        shortMessage: json['shortMessage'],
-        replacements: json['replacements']
-            .map<Replacement>(Replacement.fromJson)
-            .toList(),
-        offset: json['offset'],
-        length: json['length'],
-        context: Context.fromJson(json['context']),
-        sentence: json['sentence'],
-        type: Type.fromJson(json['type']),
-        rule: Rule.fromJson(json['rule']),
-        ignoreForIncompleteSentence: json['ignoreForIncompleteSentence'],
-        contextForSureMatch: json['contextForSureMatch'],
-      );
 
   Map<String, dynamic> toJson() => {
         'message': message,
@@ -108,15 +108,15 @@ class Context {
     required this.length,
   });
 
+  factory Context.fromJson(Map<String, dynamic> json) => Context(
+        text: json['text'] as String,
+        offset: json['offset'] as int,
+        length: json['length'] as int,
+      );
+
   String text;
   int offset;
   int length;
-
-  factory Context.fromJson(Map<String, dynamic> json) => Context(
-        text: json['text'],
-        offset: json['offset'],
-        length: json['length'],
-      );
 
   Map<String, dynamic> toJson() => {
         'text': text,
@@ -129,12 +129,11 @@ class Replacement {
   Replacement({
     required this.value,
   });
+  factory Replacement.fromJson(Map<String, dynamic> json) => Replacement(
+        value: json['value'] as String,
+      );
 
   String value;
-
-  factory Replacement.fromJson(dynamic json) => Replacement(
-        value: json['value'],
-      );
 
   Map<String, dynamic> toJson() => {
         'value': value,
@@ -149,20 +148,19 @@ class Rule {
     required this.category,
     required this.isPremium,
   });
+  factory Rule.fromJson(Map<String, dynamic> json) => Rule(
+        id: json['id'] as String,
+        description: json['description'] as String,
+        issueType: json['issueType'] as String,
+        category: Category.fromJson(json['category'] as Map<String, dynamic>),
+        isPremium: json['isPremium'] as bool,
+      );
 
   String id;
   String description;
   String issueType;
   Category category;
   bool isPremium;
-
-  factory Rule.fromJson(Map<String, dynamic> json) => Rule(
-        id: json['id'],
-        description: json['description'],
-        issueType: json['issueType'],
-        category: Category.fromJson(json['category']),
-        isPremium: json['isPremium'],
-      );
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -179,13 +177,13 @@ class Category {
     required this.name,
   });
 
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+        id: json['id'] as String,
+        name: json['name'] as String,
+      );
+
   String id;
   String name;
-
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json['id'],
-        name: json['name'],
-      );
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -198,11 +196,11 @@ class Type {
     required this.typeName,
   });
 
-  String typeName;
-
   factory Type.fromJson(Map<String, dynamic> json) => Type(
-        typeName: json['typeName'],
+        typeName: json['typeName'] as String,
       );
+
+  String typeName;
 
   Map<String, dynamic> toJson() => {
         'typeName': typeName,
@@ -220,6 +218,16 @@ class Software {
     required this.status,
   });
 
+  factory Software.fromJson(Map<String, dynamic> json) => Software(
+        name: json['name'] as String,
+        version: json['version'] as String,
+        buildDate: json['buildDate'] as String,
+        apiVersion: json['apiVersion'] as int,
+        premium: json['premium'] as bool,
+        premiumHint: json['premiumHint'] as String,
+        status: json['status'] as String,
+      );
+
   String name;
   String version;
   String buildDate;
@@ -227,16 +235,6 @@ class Software {
   bool premium;
   String premiumHint;
   String status;
-
-  factory Software.fromJson(Map<String, dynamic> json) => Software(
-        name: json['name'],
-        version: json['version'],
-        buildDate: json['buildDate'],
-        apiVersion: json['apiVersion'],
-        premium: json['premium'],
-        premiumHint: json['premiumHint'],
-        status: json['status'],
-      );
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -253,12 +251,11 @@ class Warnings {
   Warnings({
     required this.incompleteResults,
   });
+  factory Warnings.fromJson(Map<String, dynamic> json) => Warnings(
+        incompleteResults: json['incompleteResults'] as bool,
+      );
 
   bool incompleteResults;
-
-  factory Warnings.fromJson(Map<String, dynamic> json) => Warnings(
-        incompleteResults: json['incompleteResults'],
-      );
 
   Map<String, dynamic> toJson() => {
         'incompleteResults': incompleteResults,

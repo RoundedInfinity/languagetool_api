@@ -1,16 +1,18 @@
 # LanguageTool API
 
-Dart library for checking text for grammar and spelling mistakes using the [LanguageTool API.](https://languagetool.org)
+[![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
+[![License: MIT][license_badge]][license_link]
+[![CodeFactor](https://www.codefactor.io/repository/github/roundedinfinity/languagetool_api/badge)](https://www.codefactor.io/repository/github/roundedinfinity/languagetool_api)
 
-[![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://pub.dev/packages/effective_dart) [![CodeFactor](https://www.codefactor.io/repository/github/roundedinfinity/languagetool_api/badge)](https://www.codefactor.io/repository/github/roundedinfinity/languagetool_api)
+Dart library for checking text for grammar and spelling mistakes using the [LanguageTool API.](https://languagetool.org)
 
 ## 🚀 Features
 
-**Check for**...
+**Checking for** the following:
 
-- ...spelling mistakes
-- ...grammatical mistakes
-- ...logical mistakes
+- spelling mistakes
+- grammatical mistakes
+- logical mistakes
 
 The free version has 20 requests per minute.
 
@@ -34,4 +36,9 @@ result.forEach(print);
 
 To get all available languages, call `LanguageTool.languages`.
 
-You can find a more advanced example in the example tab.
+You can find a more advanced example in the [example](https://pub.dev/packages/language_tool/example) tab.
+
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[license_link]: https://opensource.org/licenses/MIT
+[very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
+[very_good_analysis_link]: https://pub.dev/packages/very_good_analysis

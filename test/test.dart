@@ -1,6 +1,5 @@
-import 'package:test/test.dart';
-
 import 'package:language_tool/language_tool.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Checking', () {

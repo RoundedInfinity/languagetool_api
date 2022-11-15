@@ -20,7 +20,7 @@ void main() async {
 
 ///Prints every property for every [WritingMistake] passed.
 void printDetails(List<WritingMistake> result) {
-  for (var mistake in result) {
+  for (final mistake in result) {
     print('''
         Issue: ${mistake.message}
         IssueType: ${mistake.issueDescription}
@@ -33,23 +33,26 @@ void printDetails(List<WritingMistake> result) {
 
 /// prints the given [sentence] with all mistakes marked red.
 void markMistakes(List<WritingMistake> result, String sentence) {
+  var text = sentence;
   // Color codes for the terminal.
-  var red = '\u001b[31m';
-  var reset = '\u001b[0m';
+  const red = '\u001b[31m';
+  const reset = '\u001b[0m';
 
   var addedChars = 0;
 
-  for (var mistake in result) {
-    sentence = sentence.replaceRange(
+  for (final mistake in result) {
+    text = text.replaceRange(
       mistake.offset + addedChars,
       mistake.offset + mistake.length + addedChars,
       red +
-          sentence.substring(mistake.offset + addedChars,
-              mistake.offset + mistake.length + addedChars) +
+          text.substring(
+            mistake.offset + addedChars,
+            mistake.offset + mistake.length + addedChars,
+          ) +
           reset,
     );
     addedChars += 9;
   }
 
-  print(sentence);
+  print(text);
 }

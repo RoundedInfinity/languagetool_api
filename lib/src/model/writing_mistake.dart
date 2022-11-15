@@ -1,5 +1,19 @@
+import 'package:language_tool/src/model/answer_raw.dart';
+
 /// Object that stores information about a single writing mistake.
 class WritingMistake {
+  /// Object that stores information about a single writing mistake.
+  WritingMistake({
+    required this.message,
+    required this.offset,
+    required this.length,
+    required this.issueType,
+    required this.issueDescription,
+    required this.replacements,
+    required this.shortMessage,
+    required this.context,
+  });
+
   /// Position of the beginning of the mistake.
   final int offset;
 
@@ -20,15 +34,12 @@ class WritingMistake {
   /// Sortet by probability.
   final List<String> replacements;
 
-  /// Object that stores information about a single writing mistake.
-  WritingMistake({
-    required this.message,
-    required this.offset,
-    required this.length,
-    required this.issueType,
-    required this.issueDescription,
-    required this.replacements,
-  });
+  /// An optional shorter version of 'message'. ,
+  final String shortMessage;
+
+  /// Context of the error,
+  /// i.e. the error and some text to the left and to the left.
+  final Context context;
 
   /// Copies the object with the specified values changed.
   WritingMistake copyWith({
@@ -38,6 +49,8 @@ class WritingMistake {
     required String issueDescription,
     required String message,
     required List<String> replacements,
+    required String shortMessage,
+    required Context context,
   }) {
     return WritingMistake(
       offset: offset,
@@ -46,6 +59,8 @@ class WritingMistake {
       issueDescription: issueDescription,
       message: message,
       replacements: replacements,
+      context: context,
+      shortMessage: shortMessage,
     );
   }
 
