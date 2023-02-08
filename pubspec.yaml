@@ -10,6 +10,6 @@ environment:
 
 dev_dependencies:
   test: ^1.21.6
-  very_good_analysis: ^3.1.0
+  very_good_analysis: ">=3.1.0 <5.0.0"
 dependencies:
   http: ^0.13.5
