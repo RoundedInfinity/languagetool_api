@@ -96,7 +96,7 @@ class LanguageTool {
   Future<List<Language>?> languages() async {
     final res = await http.get(
       Uri.https(_url, 'v2/languages'),
-      headers: {'content-type': 'application/json'},
+      headers: {'Accept': 'application/json'},
     );
 
     if (res.statusCode != 200) {
