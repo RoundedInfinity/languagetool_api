@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes
+
 /// An object that contains information about a language.
 class Language {
   /// An object that contains information about a language.
