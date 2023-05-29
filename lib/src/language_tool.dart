@@ -54,7 +54,7 @@ class LanguageTool {
     }
 
     final languageToolAnswer = LanguageToolAnswerRaw.fromJson(
-      json.decode(res.body) as Map<String, dynamic>,
+      json.decode(utf8.decode(res.bodyBytes)) as Map<String, dynamic>,
     );
 
     return parseWritings(languageToolAnswer);
