@@ -6,9 +6,9 @@ import 'package:language_tool/src/model/answer_raw.dart';
 import 'package:language_tool/src/model/language.dart';
 import 'package:language_tool/src/model/writing_mistake.dart';
 
-/// Objects of this class are used to interact with the LanguageTool API.
+/// Class used to interact with the LanguageTool API.
 class LanguageTool {
-  /// Onject to interact with the LanguageTool API.
+  /// Class to interact with the LanguageTool API.
   ///
   /// Use `check` to check text for spelling and grammar mistakes.
   ///
@@ -23,7 +23,7 @@ class LanguageTool {
   final bool picky;
 
   /// A language code like en-US,
-  /// de-DE, fr, or __auto__ to guess the anguage automatically.
+  /// de-DE, fr, or __auto__ to guess the language automatically.
   ///
   /// For languages with variants (English, German, Portuguese)
   /// spell checking will only be activated
@@ -39,12 +39,11 @@ class LanguageTool {
 
   /// Check a text with LanguageTool for possible style and grammar issues.
   ///
-  /// If no mistake were found, this returns an emtpy list
+  /// If no mistake were found, this returns an empty list
   Future<List<WritingMistake>> check(String text) async {
     final languageToolUri = Uri.https(_url, 'v2/check');
     final res = await http.post(
       languageToolUri,
-      // 'https://api.languagetoolplus.com/v2/check',
       headers: _headers,
       body: _formatDataArgument(text),
     );

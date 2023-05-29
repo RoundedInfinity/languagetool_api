@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:language_tool/language_tool.dart';
 
 void main() async {
@@ -25,7 +27,7 @@ void printDetails(List<WritingMistake> result) {
         Issue: ${mistake.message}
         IssueType: ${mistake.issueDescription}
         positioned at: ${mistake.offset}
-        with the lengh of ${mistake.length}.
+        with the length of ${mistake.length}.
         Possible corrections: ${mistake.replacements}
     ''');
   }

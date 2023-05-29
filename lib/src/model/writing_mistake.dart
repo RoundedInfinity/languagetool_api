@@ -31,7 +31,7 @@ class WritingMistake {
 
   /// A list of suggestions for replacing the mistake.
   ///
-  /// Sortet by probability.
+  /// Sorted by probability.
   final List<String> replacements;
 
   /// An optional shorter version of 'message'. ,
