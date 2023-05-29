@@ -6,7 +6,7 @@ repository: https://github.com/RoundedInfinity/languagetool_api.git
 issue_tracker: https://github.com/RoundedInfinity/languagetool_api/issues
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=2.15.0 <4.0.0"
 
 dev_dependencies:
   test: ^1.24.3
